@@ -1,0 +1,27 @@
+#include <Stepper.h>
+#include <Wire.h>
+
+
+const int stepsPerPutaran = 200;
+
+
+// Inisialisasi pin 6 sampai 9
+Stepper motorStepper(stepsPerPutaran, 6, 7, 8, 9);
+
+int stepCount = 0; // jumlah steps
+
+void setup() {}
+
+void loop() {
+// Membaca nilai sensor
+int sensorRead = analogRead(A0);
+// Jangkauan kecepatan dari 0 sampai 1000
+int motorSpeed = map(sensorRead, 0, 1023, 0, 100);
+// Mengatur kecepatan motor
+if (motorSpeed > 0) {
+motorStepper.setSpeed(motorSpeed);
+// Putaran 1/100 dari perputaran
+motorStepper.step(stepsPerPutaran / 100);
+
+}
+}
